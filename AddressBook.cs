@@ -16,8 +16,6 @@ namespace Day23CollectionProject
             ContactInfo = new Contacts[100];
             NumberOfContacts = 0;
         }
-
-       
         public void AddContact(Contacts contact)
         {
             bool isDuplicate = ContactInfo.Any(existingContact => existingContact != null && existingContact.firstName == contact.firstName && existingContact.lastName == contact.lastName);
@@ -41,6 +39,24 @@ namespace Day23CollectionProject
             {
                 Console.WriteLine("Name: {0} {1}\nCountry: {2}\nPhone: {3}\nEmail: {4}\n",
                     ContactInfo[i].firstName, ContactInfo[i].lastName, ContactInfo[i].country, ContactInfo[i].phoneNumber, ContactInfo[i].email);
+            }
+        }
+
+        public void SearchByCountry(string country)
+        {
+            var results = ContactInfo.Where(contact => contact != null && contact.country == country);
+
+            if (results.Any())
+            {
+                Console.WriteLine($"Contacts in {country}:");
+                foreach (var result in results)
+                {
+                    Console.WriteLine($"{result.firstName} {result.lastName}: {result.phoneNumber}, {result.email}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in {country}.");
             }
         }
     }
